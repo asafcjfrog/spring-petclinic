@@ -57,12 +57,12 @@ jobs:
       - name: Build with Maven
         run: jf mvn clean install
 
-      # Step 7: Upload Maven artifacts to JFrog Artifactory
-      - name: Upload Maven artifacts to JFrog Artifactory
-        run: |
-          jfrog rt mvn "clean install" spring-petclinic-maven-repo --build-name="spring-petclinic-build" --build-number=${{ github.run_number }}
+#      # Step 7: Upload Maven artifacts to JFrog Artifactory
+#      - name: Upload Maven artifacts to JFrog Artifactory
+#        run: |
+#          jfrog rt mvn "clean install" spring-petclinic-maven-repo --build-name="spring-petclinic-build" --build-number=${{ github.run_number }}
 
-      # Step 8: Publish the build info to JFrog Artifactory
-      - name: Publish build info to JFrog Artifactory
-        run: |
-          jfrog rt build-publish spring-petclinic-build ${{ github.run_number }}
+#      # Step 8: Publish the build info to JFrog Artifactory
+#      - name: Publish build info to JFrog Artifactory
+#        run: |
+#          jfrog rt build-publish spring-petclinic-build ${{ github.run_number }}
