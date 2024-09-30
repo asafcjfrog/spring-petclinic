@@ -45,10 +45,10 @@ jobs:
       # Step 6: Configure Maven with JFrog CLI (jfrog rt mvn-config)
       - name: Configure Maven with JFrog CLI
         run: |
-          jf rt mvn-config --repo-resolve-releases=https://asafc12.jfrog.io/artifactory/petclinic-libs-snapshot/ \
-                           --repo-resolve-snapshots=https://asafc12.jfrog.io/artifactory/petclinic-libs-snapshot/ \
-                           --repo-deploy-releases=https://asafc12.jfrog.io/artifactory/petclinic-libs-release/ \
-                           --repo-deploy-snapshots=https://asafc12.jfrog.io/artifactory/petclinic-libs-release/ 
+          jf rt mvn-config --repo-resolve-releases=petclinic-libs-snapshot \
+                           --repo-resolve-snapshots=petclinic-libs-snapshot \
+                           --repo-deploy-releases=petclinic-libs-release \
+                           --repo-deploy-snapshots=petclinic-libs-release 
 
       # Step 4: Build the project with Maven
       - name: Build with Maven
