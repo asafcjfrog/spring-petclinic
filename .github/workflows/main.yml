@@ -22,12 +22,12 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         env:
           JF_URL: https://${{ vars.JF_URL }}/
+          # I used Basic authentication credentials because of maven, you can also use OIDC
+          JF_USER: ${{ secrets.JF_USER }}
+          JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
           #JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
           JFROG_CLI_LOG_LEVEL: DEBUG
           JF_PROJECT: jobsummary
-          # Basic authentication credentials
-          JF_USER: ${{ secrets.JF_USER }}
-          JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
 
       # Step 3: Set up JDK 17 for the project
       - name: Set up JDK 17
@@ -35,15 +35,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-
-#      # Step 4: Cache Maven dependencies
-#      - name: Cache Maven dependencies
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven-
 
       # Step 6: Configure Maven with JFrog CLI (jfrog rt mvn-config)
       - name: Configure Maven with JFrog CLI
@@ -56,13 +47,3 @@ jobs:
       # Step 4: Build the project with Maven
       - name: Build with Maven
         run: jf mvn clean install
-
-#      # Step 7: Upload Maven artifacts to JFrog Artifactory
-#      - name: Upload Maven artifacts to JFrog Artifactory
-#        run: |
-#          jfrog rt mvn "clean install" spring-petclinic-maven-repo --build-name="spring-petclinic-build" --build-number=${{ github.run_number }}
-
-#      # Step 8: Publish the build info to JFrog Artifactory
-#      - name: Publish build info to JFrog Artifactory
-#        run: |
-#          jfrog rt build-publish spring-petclinic-build ${{ github.run_number }}
